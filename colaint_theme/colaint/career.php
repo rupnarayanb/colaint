@@ -5,11 +5,19 @@
 		//$from = $_POST['email']; // this is the sender's Email address
 		//$attachment = $_FILES['file_attach'];
 		
-	echo "Test";
+	$message = '<html><body>';
+	$message .= '<table rules="all" style="border-color: #666;" cellpadding="10">';
+	$message .= "<tr><td><strong>First Name:</strong> </td><td>" . strip_tags($_POST['first_names']) . "</td></tr>";
+	$message .= "<tr><td><strong>Last Name:</strong> </td><td>" . strip_tags($_POST['last_names']) . "</td></tr>";
+	$message .= "<tr><td><strong>Email Address :</strong> </td><td>" . strip_tags($_POST['career_email']) . "</td></tr>";
+	$message .= "</table>";
+	$message .= "</body></html>";
+	
+	
 	$file_attached = false;
     if(isset($_POST['first_names'])) //check uploaded file
     {
-		echo "Mail Sent2.";
+		
         //get file details we need
         $file_tmp_name    = $_FILES['file_attach']['tmp_name'];
         $file_name        = $_FILES['file_attach']['name'];
@@ -27,11 +35,11 @@
 		
 	}
 	
-	echo($file_attached);
+	
 
 	  if($file_attached) //continue if we have the file
     {
-		
+	
 		// a random hash will be necessary to send mixed content
 		$separator = md5(time());
 
@@ -44,20 +52,23 @@
 		$headers .= "Content-Type: multipart/mixed; boundary=\"" . $separator . "\"" . $eol;
 		$headers .= "Content-Transfer-Encoding: 7bit" . $eol;
 		$headers .= "This is a MIME encoded message." . $eol;
-		echo  $file_type  ;
+		
 		 // message
-		 $body="";
-    $body .= "--" . $separator . $eol;
-    $body .= "Content-type:text/html; charset=utf-8\n";
-    $body .= "Content-Transfer-Encoding: 7bit\r\n\r\n";
-		// attachment
-    $body .= "--" . $separator . $eol;
-    $body  .= "Content-Type:".$file_type." ";
-    $body .= "Content-Type: application/octet-stream; name=\"" . $file_name . "\"" . $eol;
-    $body .= "Content-Transfer-Encoding: base64" . $eol;
-    $body .= "Content-Disposition: attachment; filename=\"".$file_name."\"". $eol;
-    $body .= $encoded_content . $eol;
-    $body .= "--" . $separator . "--";
+		$body="";
+		$body .= "--" . $separator . $eol;
+		$body .= "Content-type:text/html; charset=utf-8\n";
+		$body .= "Content-Transfer-Encoding: 7bit\r\n\r\n";
+		$body .= $message . $eol;
+	
+			// attachment
+		$body .= "--" . $separator . $eol;
+		$body  .= "Content-Type:".$file_type." ";
+		$body .= "Content-Type: application/octet-stream; name=\"" . $file_name . "\"" . $eol;
+		$body .= "Content-Transfer-Encoding: base64" . $eol;
+		$body .= "Content-Disposition: attachment; filename=\"".$file_name."\"". $eol;
+		$body .= $encoded_content . $eol;
+		
+		
 		
 		$subject = "Form submission";
 	
@@ -75,7 +86,7 @@
 		 print_r( error_get_last() );
 			die($output);
 		}else{
-			$output = json_encode(array('type'=>'message', 'text' => 'Hi '.$first_name .' Thank you for your order, will get back to you shortly'));
+			$output = json_encode(array('type'=>'message', 'text' => 'Success'));
 			
 			die($output);
 		}

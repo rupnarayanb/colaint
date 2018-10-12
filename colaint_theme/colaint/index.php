@@ -230,14 +230,19 @@
 				  <form action="career.php" role="form" method="post" id="career-form-page" enctype="multipart/form-data">
 				  <div class="modal-body">
 					<div class="row">
-						<div class="col-lg-6">
+						<div class="col-12">
 							<div class="form-group">
-								<input type="textbox" class="form-control" id="fname" placeholder="First Name" name="first_names">
+								<input type="textbox" class="form-control" id="fname" placeholder="First Name" name="first_names" required>
 							</div>
 						</div>
-						<div class="col-lg-6">
+						<div class="col-12">
 							<div class="form-group">
-								<input type="textbox" class="form-control" id="lname" placeholder="Last Name" name="last_names">
+								<input type="textbox" class="form-control" id="lname" placeholder="Last Name" name="last_names" required>
+							</div>
+						</div>
+						<div class="col-12">
+							<div class="form-group">
+								<input type="textbox" class="form-control" id="resume_email" placeholder="Email" name="career_email" required>
 							</div>
 						</div>
 					</div>
@@ -246,7 +251,7 @@
 					</div>
 					<div class="row center">
 						<div class="col-12" style="margin-top:1rem">
-							<input type="submit" name="submit" value="Post Resume" class="btn btn-danger">
+							<input type="submit" name="submit" value="Post Resume" class="btn btn-danger" id="career_submit">
 						</div>
 					</div>
 					 </form>
@@ -314,6 +319,7 @@
 			var m_data = new FormData();   
             m_data.append( 'first_names', $('#fname').val());
             m_data.append( 'last_names', $('#lname').val());
+			m_data.append( 'career_email', $('#resume_email').val());
             m_data.append( 'file_attach', $('input[type=file]')[0].files[0]);
 			
 			 $.ajax({
@@ -323,17 +329,21 @@
 			dataType:'json',
 			processData: false,
             contentType: false,
+			beforeSend: function(){
+				$('#career_submit').val('Sending...');
+				$('#career_submit').attr('disabled','disabled');
+			},
             success: function(response) { 
-               
-			   console.log(response);
+               $('.modal-body').html('<h2>Resume submitted successfully.</h2>')
+			   //console.log(response);
             },
             error: function(xhr, status, error){
-                console.log(xhr); 
+                $('#career_submit').removeAttr('disabled','disabled');
+				$('.modal-body').after('<h2>Error</h2>');
+				$('#career_submit').val('Submit Resume');
+				console.log(error);
             }
         });
-		
-		
-	
 	});
 	
 	});
