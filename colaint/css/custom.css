@@ -72,12 +72,11 @@ p{
 
 .tagline{
 	text-align:center;
-	background:#2c3d4e;
-	opacity:.9;
-	color: #fff;
-	font-size: 2rem;
-	font-weight:100;
-	text-shadow:-1px -1px 0 #000;
+	opacity:1;
+	color: #2c3d4e;
+	font-size: 2.5rem;
+	font-weight:300;
+	text-shadow:-1px -1px 0 #fff;
 	margin-top: 7%;
 	width:95%;
 	margin-left:auto;
@@ -103,8 +102,8 @@ p{
 }
 
 .btn{
-	font-size:2rem;
-	font-weight:200;
+	font-size:1.5rem;
+	font-weight:500;
 	width:15rem;
 	opacity:1;
 }
@@ -137,12 +136,14 @@ p{
 	color:#fff;
 	border-bottom-right-radius:.5rem;
 	border-bottom-left-radius:.5rem;
+	font-size:.8rem;
+	z-index:5;
 }
 .login-box a{
 	color:#fff;
 }
 
-.login-box a:hover{
+.login-box a:hover,.login-box a:active,.login-box a:link{
 	color:#fff;
 	text-decoration:underline;
 }
@@ -153,7 +154,11 @@ p{
 }
 
 .plain-box{
-	padding: 1rem 3.5rem 3.5rem 3.5rem;
+	padding: 2rem;
+}
+
+.technology-container .plain-box{
+	padding: 0;
 }
 
 .about-container{
@@ -184,7 +189,7 @@ p{
 	margin-top:-2rem;
 	position:relative;
 	z-index:101;
-	padding:2rem;
+	padding: 2rem;
 }
 
 .vision-container{
@@ -194,8 +199,12 @@ p{
 	margin:auto;
 }
 
-.vision-container h1, .technology-container h1{
+.vision-container h1{
 	padding-top:2rem;
+}
+
+.technology-container h1{
+	padding-top:0;
 }
 
 .vision-container-body{
@@ -212,7 +221,7 @@ p{
 }
 
 .technology-container-body{
-	padding:0;
+	padding:2rem;
 	margin: 2rem 0 2rem 0;
 }
 
@@ -223,7 +232,6 @@ p{
 
 .about-container .main-heading{
 	line-height: 2.5rem;
-	padding-left:4rem;
 }
 
 .divider{
@@ -241,19 +249,25 @@ p{
 .what-we-do{
 	background: #2c3d4e;
 	color:#fff;
+	margin-left:0;
 }
 
 .what-we-do  h1{
 	color:#fff;
-	padding: 2rem 0 1rem 4rem;
+	padding: 2rem 0 1rem 2rem;
 }
 
 .what-we-do p{
-	padding:0 4rem;
+	padding:0 2rem;
 }
 
 .offerings{
-	padding: 0 4rem;
+	padding: 0 2rem;
+}
+
+.offerings ul li{
+	font-size:1.5rem;
+	padding-bottom:1rem;
 }
 
 .offerings .main-heading {
@@ -262,7 +276,7 @@ p{
 
 .meet{
 	background:#f3f2f1;
-	margin-top:2.5rem;
+	margin-top:2rem;
 }
 
 .meet .main-heading{
@@ -286,11 +300,14 @@ textarea{
 	width:100%;
 	/*height:100%;*/
 	color:#fff;
-	padding:4rem;
+	
+}
+
+.career-body{
+	padding:2rem;
 }
 
 .career h1{
-	padding-top:2rem;
 	color:#fff;
 }
 
@@ -427,13 +444,6 @@ section.block-section {
   color: #BD5D38 !important;
 }
 
-a {
-  color: #BD5D38;
-}
-
-a:hover, a:focus, a:active {
-  color: #824027;
-}
 
 
 /* added */
