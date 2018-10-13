@@ -247,7 +247,7 @@
 						</div>
 					</div>
 					<div class="row center">
-						<div class="col-12"><input type="file" name="file_attach"/></div>
+						<div class="col-12"><input type="file" name="file_attach" id="resume_file"/></div>
 					</div>
 					<div class="row center">
 						<div class="col-12" style="margin-top:1rem">
@@ -316,35 +316,48 @@
 		
 		e.preventDefault();
 			//var formData = $(this).serialize();
-			var m_data = new FormData();   
-            m_data.append( 'first_names', $('#fname').val());
-            m_data.append( 'last_names', $('#lname').val());
-			m_data.append( 'career_email', $('#resume_email').val());
-            m_data.append( 'file_attach', $('input[type=file]')[0].files[0]);
+			var uploadFileType = $('#resume_file').val();
+			var ext = uploadFileType.split('.').pop();
 			
-			 $.ajax({
-            type: 'POST',
-            url: 'wp-content/themes/colaint/career.php',
-            data: m_data,
-			dataType:'json',
-			processData: false,
-            contentType: false,
-			beforeSend: function(){
-				$('#career_submit').val('Sending...');
-				$('#career_submit').attr('disabled','disabled');
-			},
-            success: function(response) { 
-               $('.modal-body').html('<h2>Resume submitted successfully.</h2>')
-			   //console.log(response);
-            },
-            error: function(xhr, status, error){
-                $('#career_submit').removeAttr('disabled','disabled');
-				$('.modal-body').after('<h2>Error</h2>');
-				$('#career_submit').val('Submit Resume');
-				console.log(error);
-            }
-        });
-	});
+			
+			if(ext=="pdf" || ext=="docx" || ext=="doc"){
+			
+				var m_data = new FormData();   
+				m_data.append( 'first_names', $('#fname').val());
+				m_data.append( 'last_names', $('#lname').val());
+				m_data.append( 'career_email', $('#resume_email').val());
+				m_data.append( 'file_attach', $('input[type=file]')[0].files[0]);
+				
+				 $.ajax({
+					type: 'POST',
+					url: 'wp-content/themes/colaint/career.php',
+					data: m_data,
+					dataType:'json',
+					processData: false,
+					contentType: false,
+					beforeSend: function(){
+						$('#career_submit').val('Sending...');
+						$('#career_submit').attr('disabled','disabled');
+						if($('.upload-error').length > 0){
+							$('.upload-error').remove();
+						}
+					},
+					success: function(response) { 
+					   $('.modal-body').html('<h2>Resume submitted successfully.</h2>')
+					   //console.log(response);
+					},
+					error: function(xhr, status, error){
+						$('#career_submit').removeAttr('disabled','disabled');
+						$('.modal-body').after('<h2>Error</h2>');
+						$('#career_submit').val('Submit Resume');
+						console.log(error);
+					}
+				});
+		
+			}else{
+				$('.modal-body').find('.row:first-child').before('<h2 class="upload-error">Sorry,only doc, docx and pdf files are allowed to upload</h2>');
+			}
+		});
 	
 	});
    
